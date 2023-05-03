@@ -1,0 +1,68 @@
+# macOS-specific files
+.DS_Store
+
+# JUCE-specific files
+*.jucer
+*.jucer.user
+*.cpp.obj
+*.h.obj
+*.res
+*.rsrc
+*.sdf
+*.svg
+*.png
+*.ico
+*.icns
+*.ttf
+*.otf
+*.woff
+*.eot
+*.map
+*.zip
+*.gz
+*.bz2
+
+# Ignore compiled binary files
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Ignore build directories
+/Builds/
+/Builds/*
+
+# Ignore user-specific files
+*.log
+*.jucer.user
+*.settings
+
+# Ignore generated files
+/Projucer/Builds/*
+/Projucer/Builds
+/Projucer/Builds/LinuxMakefile
+/Projucer/Builds/MacOSX/
+/Projucer/Builds/VisualStudio2019/
+/Projucer/Builds/VisualStudio2019/Projucer.sln
+/Projucer/Builds/VisualStudio2019/Projucer/Projucer.vcxproj
+/Projucer/Builds/VisualStudio2019/Projucer/Projucer.vcxproj.filters
+/Projucer/Builds/VisualStudio2019/Projucer/Projucer.vcxproj.user
+/Projucer/Builds/VisualStudio2019/SharedCode/SharedCode.vcxproj
+/Projucer/Builds/VisualStudio2019/SharedCode/SharedCode.vcxproj.filters
+/Projucer/Builds/VisualStudio2019/SharedCode/SharedCode.vcxproj.user
+/Projucer/Builds/VisualStudio2019/PluginTemplates/PluginTemplates.vcxproj
+/Projucer/Builds/VisualStudio2019/PluginTemplates/PluginTemplates.vcxproj.filters
+/Projucer/Builds/VisualStudio2019/PluginTemplates/PluginTemplates.vcxproj.user
+/Projucer/Builds/VisualStudio2019/AppTemplates/AppTemplates.vcxproj
+/Projucer/Builds/VisualStudio2019/AppTemplates/AppTemplates.vcxproj.filters
+/Projucer/Builds/VisualStudio2019/AppTemplates/AppTemplates.vcxproj.user
+/Projucer/Builds/VisualStudio2019/Resources/Resources.vcxproj
+/Projucer/Builds/VisualStudio2019/Resources/Resources.vcxproj.filters
+/Projucer/Builds/VisualStudio2019/Resources/Resources.vcxproj.user
+/Projucer/Builds/VisualStudio2019/JuceLibraryCode/JuceLibraryCode.vcxproj
+/Projucer/Builds/VisualStudio2019/JuceLibraryCode/JuceLibraryCode.vcxproj.filters
+/Projucer/Builds/VisualStudio2019/JuceLibraryCode/JuceLibraryCode.vcxproj.user
+/Projucer/Builds/VisualStudio2019/JuceHeaderIncludePath.user.props
+/Projucer/Builds/VisualStudio2019/JuceHeaderIncludePath.props
+/Projucer/Builds/VisualStudio2019/JuceHeaderIncludePath.targets
+
