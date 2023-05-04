@@ -145,6 +145,7 @@ void KlonCentaurAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     
     float levelValue   = apvts.getRawParameterValue ("Level")->load();
 
+    inputBuffer.process(buffer);
     level.process(buffer, levelValue);
 }
 

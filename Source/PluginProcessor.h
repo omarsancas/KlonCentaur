@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "DSP/Level.h"
+#include "DSP/InputBuffer.h"
 
 //==============================================================================
 /**
@@ -62,6 +63,7 @@ public:
 
 private:
     Level level;
+    InputBuffer inputBuffer;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KlonCentaurAudioProcessor)
 };
