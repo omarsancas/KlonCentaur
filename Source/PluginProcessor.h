@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "DSP/Level.h"
 #include "DSP/InputBuffer.h"
+#include "DSP/Gain.h"
 
 //==============================================================================
 /**
@@ -62,6 +63,7 @@ public:
     juce::AudioProcessorValueTreeState::ParameterLayout createParameters();
 
 private:
+    Gain gain;
     Level level;
     InputBuffer inputBuffer;
     //==============================================================================

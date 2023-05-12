@@ -35,6 +35,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout KlonCentaurAudioProcessor::c
     
     parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Level", 1 }, "Level", 0.0f, 1.0f, 0.5f));
     
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Gain", 1 }, "Gain", 0.0f, 1.0f, 0.5f));
+    
     return parameters;
 }
 
@@ -144,9 +146,12 @@ void KlonCentaurAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     juce::ScopedNoDenormals noDenormals;
     
     float levelValue   = apvts.getRawParameterValue ("Level")->load();
+    
+    float gainValue   = apvts.getRawParameterValue ("Gain")->load();
 
     inputBuffer.process(buffer);
     level.process(buffer, levelValue);
+    gain.process(buffer, gainValue);
 }
 
 //==============================================================================
