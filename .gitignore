@@ -2,7 +2,6 @@
 .DS_Store
 
 # JUCE-specific files
-*.jucer
 *.jucer.user
 *.cpp.obj
 *.h.obj
