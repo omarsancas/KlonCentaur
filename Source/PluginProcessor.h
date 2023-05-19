@@ -16,7 +16,7 @@
 //==============================================================================
 /**
 */
-class KlonCentaurAudioProcessor  : public juce::AudioProcessor
+class KlonCentaurAudioProcessor  : public juce::AudioProcessor, juce::AudioProcessorValueTreeState::Listener
                             #if JucePlugin_Enable_ARA
                              , public juce::AudioProcessorARAExtension
                             #endif
@@ -59,13 +59,58 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
+    //==============================================================================
+    void updateDrive(const float &drive);
+    
+    float convertToDrive(const float drive);
+    
+    float getTanhOf(const float input);
+    
+    float getRandomNumber(float timeElapsed);
+    
+    float calculateDeJongMap(float x);
+    
+    void prepareFilters(juce::dsp::ProcessSpec spec);
+    
+    void prepareGains(juce::dsp::ProcessSpec spec);
+    
+    void prepareDrive();
+    
+    void updateHSFilter(const float &gain);
+    
+    void callPreOSChain(juce::dsp::AudioBlock<float> block);
+    
+    void callPostOSChain(juce::dsp::AudioBlock<float> block);
+    
+    void callProcessorCore(juce::dsp::AudioBlock<float> block, const int numChannels);
+    //==============================================================================
+    
+    
     juce::AudioProcessorValueTreeState apvts;
     juce::AudioProcessorValueTreeState::ParameterLayout createParameters();
-
+    
+    float lastSampleRate {44100.0f};
+    float mDrive {-4.0f};
+    float randomNumber = 0.69f;
+    
 private:
     Gain gain;
     Level level;
     InputBuffer inputBuffer;
+    
+    float lastPreampGain, currentPreampGain, lastTrimGain, currentTrimGain;
+    float lpFilterCutoff = 4000.0f;
+    
+    juce::Random random, whiteNoise;
+    
+    juce::dsp::LadderFilter<float> lpFilter;
+    juce::dsp::StateVariableTPTFilter<float> hpFilter;
+    
+    juce::dsp::Oversampling<float> oversamplingProcessor;
+
+    juce::dsp::ProcessorDuplicator<juce::dsp::IIR::Filter<float>, juce::dsp::IIR::Coefficients<float>> hsFilter;
+    
+    void parameterChanged (const juce::String& parameterID, float newValue) override;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KlonCentaurAudioProcessor)
 };

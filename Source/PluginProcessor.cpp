@@ -20,24 +20,57 @@ KlonCentaurAudioProcessor::KlonCentaurAudioProcessor()
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
                        ),
-                    apvts (*this, nullptr, "Parameters", createParameters())
+                    apvts (*this, nullptr, "Parameters", createParameters()),
+                    oversamplingProcessor (2, 1, juce::dsp::Oversampling<float>::FilterType::filterHalfBandPolyphaseIIR, true, false)
 #endif
 {
+    apvts.addParameterListener ("Input", this);
+    apvts.addParameterListener ("Gain", this);
+    apvts.addParameterListener ("Tone", this);
+    apvts.addParameterListener ("Trim", this);
 }
 
 KlonCentaurAudioProcessor::~KlonCentaurAudioProcessor()
 {
+    apvts.addParameterListener ("Input", this);
+    apvts.addParameterListener ("Gain", this);
+    apvts.addParameterListener ("Tone", this);
+    apvts.addParameterListener ("Trim", this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout KlonCentaurAudioProcessor::createParameters()
 {
-    juce::AudioProcessorValueTreeState::ParameterLayout parameters;
+//    juce::AudioProcessorValueTreeState::ParameterLayout parameters;
+    std::vector <std::unique_ptr<juce::RangedAudioParameter>> parameters;
     
-    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Level", 1 }, "Level", 0.0f, 1.0f, 0.5f));
+//    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Input", 1 }, "Input", 0.0f, 1.0f, 0.5f));
+//
+//
+//    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Level", 1 }, "Level", 0.0f, 1.0f, 0.5f));
+//
+//    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Gain", 1 }, "Gain", 0.0f, 1.0f, 0.5f));
+//
+//
+//    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Trim", 1 }, "Trim", 0.0f, 1.0f, 0.5f));
+//
+//
+//    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Tone", 1 }, "Tone", 0.0f, 1.0f, 0.5f));
+//
+//    return parameters;
     
-    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Gain", 1 }, "Gain", 0.0f, 1.0f, 0.5f));
+    parameters.reserve(4);
     
-    return parameters;
+    auto inputParam = std::make_unique<juce::AudioParameterFloat>("Input", "Input", -12.0f, 12.0f, 0.0f);
+    auto driveParam = std::make_unique<juce::AudioParameterFloat>("Gain", "Gain", 0.0f, 12.0f, 0.0f);
+    auto toneParam = std::make_unique<juce::AudioParameterFloat>("Tone", "Tone", -6.0f, 6.0f, 0.0f);
+    auto trimParam = std::make_unique<juce::AudioParameterFloat>("Trim", "Trim", -24.0f, 24.0f, 0.0f);
+
+    parameters.push_back(std::move(inputParam));
+    parameters.push_back(std::move(driveParam));
+    parameters.push_back(std::move(toneParam));
+    parameters.push_back(std::move(trimParam));
+    
+    return { parameters.begin(), parameters.end() };
 }
 
 //==============================================================================
@@ -107,6 +140,20 @@ void KlonCentaurAudioProcessor::prepareToPlay (double sampleRate, int samplesPer
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    juce::dsp::ProcessSpec spec;
+    spec.maximumBlockSize = samplesPerBlock;
+    spec.sampleRate = sampleRate;
+    spec.numChannels = getTotalNumOutputChannels();
+    
+    lastSampleRate = sampleRate;
+    
+    
+    prepareFilters(spec);
+    prepareGains(spec);
+    prepareDrive();
+    
+    oversamplingProcessor.initProcessing(spec.maximumBlockSize);
+    oversamplingProcessor.reset();
 }
 
 void KlonCentaurAudioProcessor::releaseResources()
@@ -145,13 +192,60 @@ void KlonCentaurAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
 {
     juce::ScopedNoDenormals noDenormals;
     
-    float levelValue   = apvts.getRawParameterValue ("Level")->load();
+//    float levelValue   = apvts.getRawParameterValue ("Level")->load();
+//
+//    float gainValue   = apvts.getRawParameterValue ("Gain")->load();
+//
+//    inputBuffer.process(buffer);
+//    level.process(buffer, levelValue);
+//    gain.process(buffer, gainValue);
     
-    float gainValue   = apvts.getRawParameterValue ("Gain")->load();
+    auto totalNumInputChannels  = getTotalNumInputChannels();
+    auto totalNumOutputChannels = getTotalNumOutputChannels();
+    
+    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
+        buffer.clear (i, 0, buffer.getNumSamples());
+    
+    const auto numChannels = buffer.getNumChannels();
+    
+    juce::dsp::AudioBlock<float> audioBlock {buffer};
+    
+    // Input gain and smoothing
+    if (currentPreampGain == lastPreampGain)
+    {
+        buffer.applyGain(0, buffer.getNumSamples(), currentPreampGain);
 
-    inputBuffer.process(buffer);
-    level.process(buffer, levelValue);
-    gain.process(buffer, gainValue);
+    } else
+    {
+        buffer.applyGainRamp(0, buffer.getNumSamples(), lastPreampGain, currentPreampGain);
+        lastPreampGain = currentPreampGain;
+    }
+    
+    // Pre distortion DSP
+    callPreOSChain(audioBlock);
+            
+    auto upSampledBlock = oversamplingProcessor.processSamplesUp(audioBlock);
+    
+    // Main loop with distortion
+    callProcessorCore(upSampledBlock, numChannels);
+    
+    oversamplingProcessor.processSamplesDown(audioBlock);
+    
+    // Post distortion DSP
+    callPostOSChain(audioBlock);
+    
+    // Trim gain and smoothing
+    if (currentTrimGain == lastTrimGain)
+    {
+        buffer.applyGain(0, buffer.getNumSamples(), currentTrimGain);
+
+    } else
+    {
+        buffer.applyGainRamp(0, buffer.getNumSamples(), lastTrimGain, currentTrimGain);
+        lastTrimGain = currentTrimGain;
+    }
+    
+    
 }
 
 //==============================================================================
@@ -177,6 +271,27 @@ void KlonCentaurAudioProcessor::setStateInformation (const void* data, int sizeI
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+}
+
+
+void KlonCentaurAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue){
+    
+    if (parameterID == "Tone") {
+        
+        updateHSFilter(pow(10, newValue / 2 / 20));
+        lpFilter.setCutoffFrequencyHz(pow(10, newValue / 20) * lpFilterCutoff);
+        
+    } else if (parameterID == "Trim"){
+        
+        currentTrimGain = pow(10, newValue / 20);
+        
+    } else if (parameterID == "Gain"){
+        
+        updateDrive(newValue);
+        
+    } else {
+        currentPreampGain = pow(10, newValue / 20);
+    }
 }
 
 //==============================================================================

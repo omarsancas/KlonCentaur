@@ -4,6 +4,26 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="h7cUyy" name="KlonCentaur">
     <GROUP id="{2EEA8BFE-711C-4B39-5476-087D38B0E520}" name="DSP">
+      <GROUP id="{0A59815E-6032-975F-92AB-6E2AD185628A}" name="ProcessorCore">
+        <FILE id="OkF9J2" name="ProcessorCore.cpp" compile="1" resource="0"
+              file="Source/DSP/ProcessorCore/ProcessorCore.cpp"/>
+      </GROUP>
+      <GROUP id="{43ACB48A-A56E-9589-3948-63437D92BF9E}" name="Blockchain">
+        <FILE id="R4PiPc" name="Blockchain.cpp" compile="1" resource="0" file="Source/Blockchain.cpp"/>
+      </GROUP>
+      <GROUP id="{3967F007-75EB-7E89-D891-D6064871C28E}" name="Chaos">
+        <FILE id="SfniH1" name="Chaos.cpp" compile="1" resource="0" file="Source/Chaos.cpp"/>
+      </GROUP>
+      <GROUP id="{380DB6E4-DF98-7F89-466D-AC5349BBA774}" name="Gain">
+        <FILE id="Vpot18" name="Gain.cpp" compile="1" resource="0" file="Source/DSP/Gain/Gain.cpp"/>
+      </GROUP>
+      <GROUP id="{DF81606B-2193-3D99-9011-52302B5FA3FB}" name="Drive">
+        <FILE id="D3TC0V" name="Drive.cpp" compile="1" resource="0" file="Source/Drive.cpp"/>
+      </GROUP>
+      <GROUP id="{2EB41C88-8723-1246-C6F0-F19EC14A13AB}" name="Filters">
+        <FILE id="oM7ITR" name="Filters.cpp" compile="1" resource="0" file="Source/Filters.cpp"/>
+      </GROUP>
+      <GROUP id="{4BFEC82D-B2AE-4EDE-A095-A493998394FD}" name="Gain"/>
       <FILE id="B6Thpn" name="ClipWDFa.h" compile="0" resource="0" file="Source/DSP/ClipWDFa.h"/>
       <FILE id="dHIqEE" name="Gain.cpp" compile="1" resource="0" file="Source/DSP/Gain.cpp"/>
       <FILE id="S3Vwvv" name="Gain.h" compile="0" resource="0" file="Source/DSP/Gain.h"/>
