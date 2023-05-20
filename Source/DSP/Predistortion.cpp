@@ -23,8 +23,9 @@ Predistortion::~Predistortion()
 
 void Predistortion::process (juce::AudioBuffer<float>& buffer)
 {
-    juce::dsp::AudioBlock<float> audioBlock {buffer};
-    hpFilter.process(audioBlock);
+    auto audioBlock = juce::dsp::AudioBlock<float> (buffer);
+    auto context = juce::dsp::ProcessContextReplacing<float> (audioBlock);
+    hpFilter.process(context);
 }
 
 

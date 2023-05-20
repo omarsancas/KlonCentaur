@@ -15,27 +15,6 @@
       <FILE id="DZKM5B" name="Predistortion.cpp" compile="1" resource="0"
             file="Source/DSP/Predistortion.cpp"/>
       <FILE id="bk0xqn" name="Predistortion.h" compile="0" resource="0" file="Source/DSP/Predistortion.h"/>
-      <GROUP id="{0A59815E-6032-975F-92AB-6E2AD185628A}" name="ProcessorCore">
-        <FILE id="OkF9J2" name="ProcessorCore.cpp" compile="1" resource="0"
-              file="Source/DSP/ProcessorCore/ProcessorCore.cpp"/>
-      </GROUP>
-      <GROUP id="{43ACB48A-A56E-9589-3948-63437D92BF9E}" name="Blockchain">
-        <FILE id="R4PiPc" name="Blockchain.cpp" compile="1" resource="0" file="Source/Blockchain.cpp"/>
-      </GROUP>
-      <GROUP id="{3967F007-75EB-7E89-D891-D6064871C28E}" name="Chaos">
-        <FILE id="SfniH1" name="Chaos.cpp" compile="1" resource="0" file="Source/Chaos.cpp"/>
-      </GROUP>
-      <GROUP id="{380DB6E4-DF98-7F89-466D-AC5349BBA774}" name="Gain">
-        <FILE id="Vpot18" name="Gain.cpp" compile="1" resource="0" file="Source/DSP/Gain/Gain.cpp"/>
-      </GROUP>
-      <GROUP id="{DF81606B-2193-3D99-9011-52302B5FA3FB}" name="Drive">
-        <FILE id="D3TC0V" name="Drive.cpp" compile="1" resource="0" file="Source/Drive.cpp"/>
-      </GROUP>
-      <GROUP id="{2EB41C88-8723-1246-C6F0-F19EC14A13AB}" name="Filters">
-        <FILE id="oM7ITR" name="Filters.cpp" compile="1" resource="0" file="Source/Filters.cpp"/>
-      </GROUP>
-      <GROUP id="{4BFEC82D-B2AE-4EDE-A095-A493998394FD}" name="Gain"/>
-      <FILE id="B6Thpn" name="ClipWDFa.h" compile="0" resource="0" file="Source/DSP/ClipWDFa.h"/>
       <FILE id="dHIqEE" name="Gain.cpp" compile="1" resource="0" file="Source/DSP/Gain.cpp"/>
       <FILE id="S3Vwvv" name="Gain.h" compile="0" resource="0" file="Source/DSP/Gain.h"/>
       <FILE id="GD3Idz" name="InputBuffer.cpp" compile="1" resource="0" file="Source/DSP/InputBuffer.cpp"/>
@@ -73,31 +52,11 @@
         <MODULEPATH id="juce_graphics" path="../../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../../JUCE/modules"/>
-        <MODULEPATH id="chowdsp_waveshapers" path="Modules/chowdsp_utils/modules/dsp"/>
-        <MODULEPATH id="chowdsp_core" path="Modules/chowdsp_utils/modules/common"/>
-        <MODULEPATH id="chowdsp_dsp_utils" path="Modules/chowdsp_utils/modules/dsp"/>
         <MODULEPATH id="juce_dsp" path="../../../../JUCE/modules"/>
-        <MODULEPATH id="chowdsp_simd" path="Modules/chowdsp_utils/modules/dsp"/>
-        <MODULEPATH id="chowdsp_data_structures" path="Modules/chowdsp_utils/modules/common"/>
-        <MODULEPATH id="chowdsp_dsp_data_structures" path="Modules/chowdsp_utils/modules/dsp"/>
-        <MODULEPATH id="chowdsp_filters" path="Modules/chowdsp_utils/modules/dsp"/>
-        <MODULEPATH id="chowdsp_math" path="Modules/chowdsp_utils/modules/dsp"/>
-        <MODULEPATH id="chowdsp_buffers" path="Modules/chowdsp_utils/modules/dsp"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
   <MODULES>
-    <MODULE id="chowdsp_buffers" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="chowdsp_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="chowdsp_data_structures" showAllCode="1" useLocalCopy="0"
-            useGlobalPath="0"/>
-    <MODULE id="chowdsp_dsp_data_structures" showAllCode="1" useLocalCopy="0"
-            useGlobalPath="0"/>
-    <MODULE id="chowdsp_dsp_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="chowdsp_filters" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="chowdsp_math" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="chowdsp_simd" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="chowdsp_waveshapers" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>

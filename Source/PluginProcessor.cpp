@@ -23,53 +23,29 @@ KlonCentaurAudioProcessor::KlonCentaurAudioProcessor()
                     apvts (*this, nullptr, "Parameters", createParameters())                    
 #endif
 {
-//    apvts.addParameterListener ("Input", this);
-    apvts.addParameterListener ("Gain", this);
-    apvts.addParameterListener ("Tone", this);
-    apvts.addParameterListener ("Trim", this);
 }
 
 KlonCentaurAudioProcessor::~KlonCentaurAudioProcessor()
 {
-//    apvts.addParameterListener ("Input", this);
-    apvts.addParameterListener ("Gain", this);
-    apvts.addParameterListener ("Tone", this);
-    apvts.addParameterListener ("Trim", this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout KlonCentaurAudioProcessor::createParameters()
 {
-//    juce::AudioProcessorValueTreeState::ParameterLayout parameters;
-    std::vector <std::unique_ptr<juce::RangedAudioParameter>> parameters;
-    
-//    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Input", 1 }, "Input", 0.0f, 1.0f, 0.5f));
-//
-//
-//    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Level", 1 }, "Level", 0.0f, 1.0f, 0.5f));
-//
-//    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Gain", 1 }, "Gain", 0.0f, 1.0f, 0.5f));
-//
-//
-//    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Trim", 1 }, "Trim", 0.0f, 1.0f, 0.5f));
-//
-//
-//    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Tone", 1 }, "Tone", 0.0f, 1.0f, 0.5f));
-//
-//    return parameters;
-    
-    parameters.reserve(4);
-    
-    auto inputParam = std::make_unique<juce::AudioParameterFloat>("Input", "Input", 0.0f, 2.0f, 1.0f);
-    auto driveParam = std::make_unique<juce::AudioParameterFloat>("Trim", "Trim", 0.0f, 12.0f, 0.0f);
-    auto toneParam = std::make_unique<juce::AudioParameterFloat>("Tone", "Tone", 20.0f, 200.0f, 20.0f);
-    auto trimParam = std::make_unique<juce::AudioParameterFloat>("Output", "Output", 0.0f, 2.0f, 1.0f);
+    juce::AudioProcessorValueTreeState::ParameterLayout parameters;
 
-    parameters.push_back(std::move(inputParam));
-    parameters.push_back(std::move(driveParam));
-    parameters.push_back(std::move(toneParam));
-    parameters.push_back(std::move(trimParam));
     
-    return { parameters.begin(), parameters.end() };
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Input", 1 }, "Input", 0.0f, 2.0f, 1.0f));
+
+
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Trim", 1 }, "Trim", 0.0f, 12.0f, 0.0f));
+
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Tone", 1 }, "Tone", 20.0f, 200.0f, 0.5f));
+
+
+
+    parameters.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID{ "Output", 1 }, "Output", 0.0f, 2.0f, 1.0f));
+
+    return parameters;    
 }
 
 //==============================================================================
@@ -148,10 +124,6 @@ void KlonCentaurAudioProcessor::prepareToPlay (double sampleRate, int samplesPer
     
     predistortion.prepare(spec);
     postdistortion.prepare(spec);
-    prepareFilters(spec);
-    prepareGains(spec);
-    prepareDrive();
-    
     maindistortion.prepare(spec);
     
 }

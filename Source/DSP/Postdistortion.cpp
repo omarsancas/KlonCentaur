@@ -23,10 +23,13 @@ Postdistortion::~Postdistortion()
 
 void Postdistortion::process (juce::AudioBuffer<float>& buffer)
 {
-    juce::dsp::AudioBlock<float> audioBlock {buffer};
-    lpFilter.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     
-    hsFilter.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    auto audioBlock = juce::dsp::AudioBlock<float> (buffer);
+    auto context = juce::dsp::ProcessContextReplacing<float> (audioBlock);
+    
+    lpFilter.process(context);
+    
+    hsFilter.process(context);
 }
 
 
