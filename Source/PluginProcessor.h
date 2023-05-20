@@ -12,6 +12,9 @@
 #include "DSP/Level.h"
 #include "DSP/InputBuffer.h"
 #include "DSP/Gain.h"
+#include "DSP/Predistortion.h"
+#include "DSP/Postdistortion.h"
+#include "DSP/MainDistortion.h"
 
 //==============================================================================
 /**
@@ -94,21 +97,23 @@ public:
     float randomNumber = 0.69f;
     
 private:
-    Gain gain;
+    Gain input;
+    Gain output;
     Level level;
     InputBuffer inputBuffer;
+    Predistortion predistortion;
+    Postdistortion postdistortion;
+    MainDistortion maindistortion;
     
-    float lastPreampGain, currentPreampGain, lastTrimGain, currentTrimGain;
-    float lpFilterCutoff = 4000.0f;
+    float lastPreampGain, currentPreampGain, lastTrimGain, currentTrimGain;    
     
-    juce::Random random, whiteNoise;
     
-    juce::dsp::LadderFilter<float> lpFilter;
-    juce::dsp::StateVariableTPTFilter<float> hpFilter;
+//    juce::dsp::LadderFilter<float> lpFilter;
+//    juce::dsp::ProcessorDuplicator<juce::dsp::IIR::Filter<float>, juce::dsp::IIR::Coefficients<float>> hsFilter;
+//    juce::dsp::StateVariableTPTFilter<float> hpFilter;
     
-    juce::dsp::Oversampling<float> oversamplingProcessor;
 
-    juce::dsp::ProcessorDuplicator<juce::dsp::IIR::Filter<float>, juce::dsp::IIR::Coefficients<float>> hsFilter;
+
     
     void parameterChanged (const juce::String& parameterID, float newValue) override;
     //==============================================================================

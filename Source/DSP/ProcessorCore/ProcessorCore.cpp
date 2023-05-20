@@ -9,7 +9,6 @@
 */
 
 #include "../../PluginProcessor.h"
-#include "../../PluginEditor.h"
 
 
 void KlonCentaurAudioProcessor::callProcessorCore(juce::dsp::AudioBlock<float> block, const int numChannels)

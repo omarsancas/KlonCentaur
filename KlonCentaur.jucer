@@ -4,6 +4,17 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="h7cUyy" name="KlonCentaur">
     <GROUP id="{2EEA8BFE-711C-4B39-5476-087D38B0E520}" name="DSP">
+      <FILE id="xubvV6" name="MainDistortion.cpp" compile="1" resource="0"
+            file="Source/DSP/MainDistortion.cpp"/>
+      <FILE id="NSs5QU" name="MainDistortion.h" compile="0" resource="0"
+            file="Source/DSP/MainDistortion.h"/>
+      <FILE id="hTTNJd" name="Postdistortion.cpp" compile="1" resource="0"
+            file="Source/DSP/Postdistortion.cpp"/>
+      <FILE id="R9NdfT" name="Postdistortion.h" compile="0" resource="0"
+            file="Source/DSP/Postdistortion.h"/>
+      <FILE id="DZKM5B" name="Predistortion.cpp" compile="1" resource="0"
+            file="Source/DSP/Predistortion.cpp"/>
+      <FILE id="bk0xqn" name="Predistortion.h" compile="0" resource="0" file="Source/DSP/Predistortion.h"/>
       <GROUP id="{0A59815E-6032-975F-92AB-6E2AD185628A}" name="ProcessorCore">
         <FILE id="OkF9J2" name="ProcessorCore.cpp" compile="1" resource="0"
               file="Source/DSP/ProcessorCore/ProcessorCore.cpp"/>

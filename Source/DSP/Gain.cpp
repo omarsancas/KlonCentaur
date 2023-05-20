@@ -22,15 +22,26 @@ Gain::~Gain()
 
 void Gain::process (juce::AudioBuffer<float>& buffer, float gainValue)
 {
-    for (int channel = 0; channel < buffer.getNumChannels(); channel++)
+//    for (int channel = 0; channel < buffer.getNumChannels(); channel++)
+//    {
+//        for (int i = 0; i < buffer.getNumSamples(); i++)
+//        {
+//            float x = buffer.getSample (channel, i);
+//
+//            float y = x * gainValue;
+//
+//            buffer.setSample (channel, i, y);
+//        }
+//    }
+
+    
+    if (gainValue == lastPreampGain)
     {
-        for (int i = 0; i < buffer.getNumSamples(); i++)
-        {
-            float x = buffer.getSample (channel, i);
-            
-            float y = x * gainValue;
-            
-            buffer.setSample (channel, i, y);
-        }
+        buffer.applyGain(0, buffer.getNumSamples(), gainValue);
+
+    } else
+    {
+        buffer.applyGainRamp(0, buffer.getNumSamples(), lastPreampGain, gainValue);
+        lastPreampGain = gainValue;
     }
 }

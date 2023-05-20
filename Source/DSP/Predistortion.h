@@ -1,8 +1,8 @@
 /*
   ==============================================================================
 
-    Gain.h
-    Created: 5 May 2023 12:11:53pm
+    Predistortion.h
+    Created: 20 May 2023 12:03:02pm
     Author:  Omar Sanchez
 
   ==============================================================================
@@ -11,18 +11,22 @@
 #pragma once
 #include <JuceHeader.h>
 
-class Gain
+class Predistortion
 {
 public:
     
-    Gain();
+    Predistortion();
     
-    ~Gain();
+    ~Predistortion();
     
-    void process (juce::AudioBuffer<float>& buffer, float gainValue);
+    void process (juce::AudioBuffer<float>& buffer);
+    void prepare (juce::dsp::ProcessSpec spec);
     
 private:
     
-    float currentPreampGain, lastPreampGain;
+    juce::dsp::StateVariableTPTFilter<float> hpFilter;
     
 };
+
+
+
