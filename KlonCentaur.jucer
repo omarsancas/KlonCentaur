@@ -33,6 +33,8 @@
     </GROUP>
     <GROUP id="{0C590E7C-29BC-F72D-F58C-7AAC8B087A66}" name="assets">
       <FILE id="SHcVKB" name="knobf.png" compile="0" resource="1" file="Source/assets/knobf.png"/>
+      <FILE id="gpDvWb" name="pedalHousing.png" compile="0" resource="1"
+            file="Source/assets/pedalHousing.png"/>
       <FILE id="WLpaUu" name="knob.png" compile="0" resource="1" file="Source/assets/knob.png"/>
       <FILE id="NzzsIK" name="background.png" compile="0" resource="1" file="Source/assets/background.png"/>
     </GROUP>

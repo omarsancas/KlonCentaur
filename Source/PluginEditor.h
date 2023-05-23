@@ -34,8 +34,8 @@ private:
     // access the processor object that created it.
     KlonCentaurAudioProcessor& audioProcessor;
     
-    juce::Slider GainSlider;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> gainAttach;
+    juce::Slider inputSlider, GainSlider, toneSlider, outputSlider;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> gainAttach, inputAttach, toneAttach, outputAttach;
     
     
     MyLookAndFeel myLookAndFeel;
