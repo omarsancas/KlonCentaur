@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="G56W4p" name="KlonCentaur" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" includeBinaryInJuceHeader="1">
   <MAINGROUP id="h7cUyy" name="KlonCentaur">
     <GROUP id="{2EEA8BFE-711C-4B39-5476-087D38B0E520}" name="DSP">
       <FILE id="xubvV6" name="MainDistortion.cpp" compile="1" resource="0"
@@ -30,6 +30,14 @@
       <FILE id="CPxrEd" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="uW5rQC" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+    </GROUP>
+    <GROUP id="{0C590E7C-29BC-F72D-F58C-7AAC8B087A66}" name="assets">
+      <FILE id="SHcVKB" name="knobf.png" compile="0" resource="1" file="Source/assets/knobf.png"/>
+      <FILE id="WLpaUu" name="knob.png" compile="0" resource="1" file="Source/assets/knob.png"/>
+      <FILE id="NzzsIK" name="background.png" compile="0" resource="1" file="Source/assets/background.png"/>
+    </GROUP>
+    <GROUP id="{3F35115D-0D93-904B-16FD-E65B0CF5D60C}" name="LookAndFeel">
+      <FILE id="tuuI7v" name="LookAndFeel.h" compile="0" resource="0" file="Source/LookAndFeel/LookAndFeel.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
