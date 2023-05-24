@@ -40,8 +40,8 @@ private:
     
     MyLookAndFeel myLookAndFeel;
     
-    juce::Image backgroundImage;
-    juce::ImageComponent backgroundComponent;
+    juce::Image pedalHousingImage, backgroundImage;
+    juce::ImageComponent pedalHousingComponent, backgroundComponent;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KlonCentaurAudioProcessorEditor)
 };

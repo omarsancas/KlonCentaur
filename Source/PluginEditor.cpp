@@ -15,9 +15,13 @@ KlonCentaurAudioProcessorEditor::KlonCentaurAudioProcessorEditor (KlonCentaurAud
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    backgroundImage = juce::ImageFileFormat::loadFrom (BinaryData::pedalHousing_png, BinaryData::pedalHousing_pngSize);
+    backgroundImage = juce::ImageFileFormat::loadFrom (BinaryData::background_png, BinaryData::background_pngSize);
     backgroundComponent.setImage (backgroundImage);
     addAndMakeVisible (backgroundComponent);
+    
+    pedalHousingImage = juce::ImageFileFormat::loadFrom (BinaryData::pedalHousing_png, BinaryData::pedalHousing_pngSize);
+    pedalHousingComponent.setImage (pedalHousingImage);
+    addAndMakeVisible (pedalHousingComponent);
     
     prepareSliders();
     setLookAndFeel (&myLookAndFeel);
@@ -66,22 +70,13 @@ void KlonCentaurAudioProcessorEditor::prepareSliders()
 //==============================================================================
 void KlonCentaurAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    g.fillAll (juce::Colours::white);
-    // (Our component is opaque, so we must completely fill the background with a solid colour)
-//    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
-//
-//    g.setColour (juce::Colours::white);
-//    g.setFont (15.0f);
-//    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+    g.fillAll (juce::Colours::whitesmoke);
 }
 
 void KlonCentaurAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
-//    GainSlider.setBounds (getWidth()/2 + 175, 300, 90, 90);
-    
-    backgroundComponent.setBounds (0, 0, getWidth(), getHeight());
+    backgroundComponent.setBounds (getLocalBounds ());
+    pedalHousingComponent.setBounds (0, 0, getWidth(), getHeight());
     
     toneSlider.setBounds (getWidth()/2.5, 45, 45, 45);
     inputSlider.setBounds (getWidth()/2.5 + 75, 45, 45, 45);
