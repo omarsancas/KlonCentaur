@@ -8,11 +8,11 @@
 
 namespace BinaryData
 {
+    extern const char*   pedalHousing_png;
+    const int            pedalHousing_pngSize = 65010;
+
     extern const char*   knobf_png;
     const int            knobf_pngSize = 520413;
-
-    extern const char*   pedalHousing_png;
-    const int            pedalHousing_pngSize = 44394;
 
     extern const char*   knob_png;
     const int            knob_pngSize = 4381;
