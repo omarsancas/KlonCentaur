@@ -41,24 +41,45 @@ void KlonCentaurAudioProcessorEditor::prepareSliders()
     GainSlider.setSliderStyle  (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     GainSlider.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::NoTextBox, false, 0.0f, 0.0f);
     GainSlider.addListener     (this);
+    
+    gainLabel.setText ("Gain", juce::dontSendNotification);
+    gainLabel.setJustificationType (juce::Justification::centred);
+    gainLabel.attachToComponent (&GainSlider, false);
+    
     addAndMakeVisible             (GainSlider);
     
     
     inputSlider.setSliderStyle  (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     inputSlider.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::NoTextBox, false, 0.0f, 0.0f);
     inputSlider.addListener     (this);
+    
+    inputLabel.setText ("Input", juce::dontSendNotification);
+    inputLabel.setJustificationType (juce::Justification::centred);
+    inputLabel.attachToComponent (&inputSlider, false);
+    
     addAndMakeVisible             (inputSlider);
     
     
     toneSlider.setSliderStyle  (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     toneSlider.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::NoTextBox, false, 0.0f, 0.0f);
     toneSlider.addListener     (this);
+    
+    toneLabel.setText ("Tone", juce::dontSendNotification);
+    toneLabel.setJustificationType (juce::Justification::centred);
+    toneLabel.attachToComponent (&toneSlider, false);
+    
     addAndMakeVisible             (toneSlider);
     
     
     outputSlider.setSliderStyle  (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     outputSlider.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::NoTextBox, false, 0.0f, 0.0f);
     outputSlider.addListener     (this);
+    
+    outputLabel.setText ("Output", juce::dontSendNotification);
+    outputLabel.setJustificationType (juce::Justification::centred);
+    outputLabel.attachToComponent (&outputSlider, false);
+    
+    
     addAndMakeVisible             (outputSlider);
     
     inputAttach = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment> (audioProcessor.apvts, "Input", inputSlider);
@@ -78,11 +99,11 @@ void KlonCentaurAudioProcessorEditor::resized()
     backgroundComponent.setBounds (getLocalBounds ());
     pedalHousingComponent.setBounds (0, 0, getWidth(), getHeight());
     
-    toneSlider.setBounds (getWidth()/2.5, 45, 45, 45);
-    inputSlider.setBounds (getWidth()/2.5 + 75, 45, 45, 45);
+    toneSlider.setBounds (getWidth()/2.7, 45, 45, 45);
+    inputSlider.setBounds (getWidth()/2.4 + 75, 45, 45, 45);
     
-    GainSlider.setBounds (getWidth()/2.5, 120, 45, 45);
-    outputSlider.setBounds (getWidth()/2.5 + 75, 120, 45, 45);
+    GainSlider.setBounds (getWidth()/2.7, 120, 45, 45);
+    outputSlider.setBounds (getWidth()/2.4 + 75, 120, 45, 45);
 }
 
 
